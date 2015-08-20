@@ -43,3 +43,29 @@ group :development, :test do
   gem 'spring'
 end
 
+
+gem 'bootstrap-sass'
+gem 'figaro', '>= 1.0.0.rc1'
+gem 'high_voltage'
+gem 'pg'
+gem 'sendgrid'
+gem 'slim-rails'
+
+group :development do
+  gem 'better_errors'
+  gem 'haml2slim'
+  gem 'html2haml'
+  gem 'quiet_assets'
+  gem 'rails_apps_pages'
+  gem 'rails_layout'
+end
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-rescue'
+end
+
+group :production do
+  gem 'rails_12factor'
+end
+
