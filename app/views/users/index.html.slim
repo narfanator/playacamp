@@ -1,0 +1,31 @@
+h1 Listing users
+
+table.table.table-striped
+  thead
+    tr
+      th Name
+      -if !mobile_request?
+        th Email
+      th Phone
+      th Userpic
+      -if !mobile_request?
+        th
+
+  tbody
+    - @users.each do |user|
+      - if !mobile_request?
+        tr
+          td = user.name
+          td = user.email
+          td = user.phone
+          td = image_tag user.userpic.thumb
+          td = link_to 'Edit', edit_user_path(user)
+      - else
+        tr(onclick="document.location = '/?user=#{user.id}'")
+          td = user.name
+          td = user.phone
+          td = image_tag user.userpic.thumb
+
+br
+
+= link_to 'New User', new_user_path
