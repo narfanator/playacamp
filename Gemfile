@@ -14,18 +14,21 @@ gem 'mobu'
 gem "jquery-slick-rails"
 gem 'fog'
 gem 'fog-aws'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
 gem 'bootstrap-sass'
 gem 'figaro', '>= 1.0.0.rc1'
 gem 'high_voltage'
 gem 'pg'
 gem 'sendgrid'
 gem 'slim-rails'
+
 group :development do
   gem 'better_errors'
   gem 'quiet_assets'

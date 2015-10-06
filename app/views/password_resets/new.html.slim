@@ -1,0 +1,4 @@
+h2 Reset Password
+= form_tag password_resets_path, method: :post do
+  = text_field_tag :email, params[:email], placeholder: "Email"
+  = submit_tag "Reset Password"

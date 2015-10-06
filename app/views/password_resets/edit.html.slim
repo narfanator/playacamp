@@ -1,0 +1,10 @@
+= form_for @user, url: password_reset_path(params[:id]) do |f|
+  - if @user.errors.any?
+    .error_explanation
+      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this password from being updated:"
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+  = password_field_tag :password, nil, placeholder: "Password"
+  = password_field_tag :password_confirmation, nil, placeholder: "Password Confirmation"
+  = submit_tag "Update Password"
