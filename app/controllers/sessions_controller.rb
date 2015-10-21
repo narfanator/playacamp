@@ -6,12 +6,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(login_params[:email])
     # If the user exists AND the password entered is correct.
-    if user && user.authenticate(params[:password])
+    if user && user.authenticate(login_params[:password])
       # Save the user id inside the browser cookie. This is how we keep the user
       # logged in when they navigate around our website.
-      if params[:remember_me]
+      if login_params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
         cookies[:auth_token] = user.auth_token
@@ -26,5 +26,9 @@ class SessionsController < ApplicationController
   def destroy
     cookies.delete(:auth_token)
     redirect_to '/login'
+  end
+
+  def login_params
+    params.permit(:email, :password, :remember_me)
   end
 end
