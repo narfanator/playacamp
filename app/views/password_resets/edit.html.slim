@@ -5,6 +5,6 @@
       ul
         - @user.errors.full_messages.each do |message|
           li = message
-  = password_field_tag :password, nil, placeholder: "Password"
-  = password_field_tag :password_confirmation, nil, placeholder: "Password Confirmation"
+  = f.password_field :password, placeholder: "Password"
+  = f.password_field :password_confirmation, placeholder: "Password Confirmation"
   = submit_tag "Update Password"
