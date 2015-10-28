@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
   mount_uploader :userpic, UserPicUploader
-  validates :name, :userpic, presence: true
+  #validates :name, :userpic, presence: true
   validates :name, uniqueness: true
   before_save { |user| user.email = user.email.downcase }
 
