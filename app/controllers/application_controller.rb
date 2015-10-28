@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
+    logger.info "Looking for user with auth token: #{cookies[:auth_token]}"
     redirect_to new_session_path unless current_user
   end
 
