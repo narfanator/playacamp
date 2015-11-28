@@ -20,4 +20,5 @@ class ApplicationController < ActionController::Base
   end
 
   before_filter :authorize
+  check_authorization
 end

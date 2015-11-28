@@ -19,7 +19,10 @@ table.table.table-striped
           td = user.email
           td = user.phone
           td = image_tag user.userpic.thumb
-          td = link_to 'Edit', edit_user_path(user)
+          - if can? :manage, user
+            td = link_to 'Edit', edit_user_path(user)
+          - else
+            td = link_to 'Show', user_path(user)
       - else
         tr(onclick="document.location = '/?user=#{user.id}'")
           td = user.name
@@ -28,4 +31,5 @@ table.table.table-striped
 
 br
 
-= link_to 'New User', new_user_path
+- if can? :create, User
+  = link_to 'New User', new_user_path

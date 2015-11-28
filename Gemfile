@@ -16,6 +16,8 @@ gem 'fog'
 gem 'fog-aws'
 gem 'bcrypt'
 
+gem 'cancancan'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
