@@ -23,3 +23,17 @@
     = image_tag @user.userpic
     = f.file_field :userpic
   .actions = f.submit
+  
+  
+p Camp Score Info
+= "Total: #{@user.score}"
+br
+= "Legacy: #{@user.legacy_camp_score}"
+table.table.table-striped
+  thead
+    tr
+      th Year
+      th Year Total
+      th Preperation
+      th 
+      th  

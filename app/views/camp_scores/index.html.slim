@@ -1,0 +1,29 @@
+h1 Listing camp_scores
+
+table
+  thead
+    tr
+      th Preparation
+      th Build
+      th Participation
+      th Contribution
+      th Teardown
+      th
+      th
+      th
+
+  tbody
+    - @camp_scores.each do |camp_score|
+      tr
+        td = camp_score.preparation
+        td = camp_score.build
+        td = camp_score.participation
+        td = camp_score.contribution
+        td = camp_score.teardown
+        td = link_to 'Show', camp_score
+        td = link_to 'Edit', edit_camp_score_path(camp_score)
+        td = link_to 'Destroy', camp_score, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Camp score', new_camp_score_path

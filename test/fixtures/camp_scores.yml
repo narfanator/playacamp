@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  preparation: 
+  build: 
+  participation: 
+  contribution: 
+  teardown: 
+
+two:
+  preparation: 
+  build: 
+  participation: 
+  contribution: 
+  teardown: 

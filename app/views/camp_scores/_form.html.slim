@@ -1,0 +1,24 @@
+= form_for @camp_score do |f|
+  - if @camp_score.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@camp_score.errors.count, "error")} prohibited this camp_score from being saved:"
+      ul
+        - @camp_score.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :preparation
+    = f.text_field :preparation
+  .field
+    = f.label :build
+    = f.text_field :build
+  .field
+    = f.label :participation
+    = f.text_field :participation
+  .field
+    = f.label :contribution
+    = f.text_field :contribution
+  .field
+    = f.label :teardown
+    = f.text_field :teardown
+  .actions = f.submit

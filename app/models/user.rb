@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   before_create { generate_token(:auth_token) }
-
+  has_many :camp_scores
   has_secure_password
   mount_uploader :userpic, UserPicUploader
   #validates :name, :userpic, presence: true
@@ -18,5 +18,9 @@ class User < ActiveRecord::Base
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
+  end
+
+  def score
+    legacy_camp_score + camp_scores.collect{|c| c.score}.inject(0, :+)
   end
 end

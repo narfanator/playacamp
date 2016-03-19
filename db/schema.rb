@@ -11,23 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917062450) do
+ActiveRecord::Schema.define(version: 20151128234244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "camp_scores", force: :cascade do |t|
+    t.string   "preparation"
+    t.string   "build"
+    t.string   "participation"
+    t.string   "contribution"
+    t.string   "teardown"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "camp_scores", ["user_id"], name: "index_camp_scores_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "phone"
     t.string   "userpic"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "facebook"
     t.string   "password_digest"
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.integer  "legacy_camp_score",      default: 0
   end
 
 end

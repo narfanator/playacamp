@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Preparation:
+  = @camp_score.preparation
+p
+  strong Build:
+  = @camp_score.build
+p
+  strong Participation:
+  = @camp_score.participation
+p
+  strong Contribution:
+  = @camp_score.contribution
+p
+  strong Teardown:
+  = @camp_score.teardown
+
+= link_to 'Edit', edit_camp_score_path(@camp_score)
+'|
+= link_to 'Back', camp_scores_path

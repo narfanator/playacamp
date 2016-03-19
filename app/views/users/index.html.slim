@@ -3,6 +3,8 @@ h1 Listing users
 table.table.table-striped
   thead
     tr
+      -if can? :create, User
+        th Score
       th Name
       -if !mobile_request?
         th Email
@@ -15,6 +17,8 @@ table.table.table-striped
     - @users.each do |user|
       - if !mobile_request?
         tr
+          - if can? :create, User
+            td = user.score
           td = user.name
           td = user.email
           td = user.phone

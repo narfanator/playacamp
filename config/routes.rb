@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :camp_scores
+
   get 'password_resets/new'
 
   get 'login', to: 'sessions#new', as: 'login_form'
