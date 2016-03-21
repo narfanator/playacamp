@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tickets
+
   resources :camp_scores
 
   get 'password_resets/new'

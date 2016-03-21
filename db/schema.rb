@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128234244) do
+ActiveRecord::Schema.define(version: 20160319215225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(version: 20151128234244) do
 
   add_index "camp_scores", ["user_id"], name: "index_camp_scores_on_user_id", using: :btree
 
+  create_table "tickets", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -42,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151128234244) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "legacy_camp_score",      default: 0
+    t.integer  "needed_tickets",         default: 0
   end
 
 end

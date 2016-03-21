@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  purchaser: 1
+  holder: 1
+  held: 
+
+two:
+  purchaser: 1
+  holder: 1
+  held: 
