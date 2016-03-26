@@ -5,14 +5,8 @@
       ul
         - @ticket.errors.full_messages.each do |message|
           li = message
-
+          
   .field
-    = f.label :purchaser
-    = f.number_field :purchaser
-  .field
-    = f.label :holder
-    = f.number_field :holder
-  .field
-    = f.label :held
-    = f.text_field :held
+    = label_tag "Purchaser" 
+    = f.select :user_id, options_for_select(@users.collect{|u| [u.name, u.id] })
   .actions = f.submit

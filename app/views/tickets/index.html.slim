@@ -1,25 +1,38 @@
-h1 Listing tickets
+
+= link_to 'New Ticket', new_ticket_path
+
+h1 Listing held tickets
 
 table
   thead
     tr
-      th Purchaser
+      th Holder
+      th Held
+      th History
+
+  tbody
+    - @tickets.select{|t| t.held}.each do |ticket|
+      tr
+        td = ticket.user.name
+        td = ticket.held
+        td = ticket.history.join(", ")
+br
+
+h1 Listing allocated tickets
+
+table
+  thead
+    tr
       th Holder
       th Held
       th
-      th
-      th
+      th History
 
   tbody
-    - @tickets.each do |ticket|
+    - @tickets.select{|t| !t.held}.each do |ticket|
       tr
-        td = ticket.purchaser
-        td = ticket.holder
+        td = ticket.user.name
         td = ticket.held
-        td = link_to 'Show', ticket
         td = link_to 'Edit', edit_ticket_path(ticket)
-        td = link_to 'Destroy', ticket, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+        td = ticket.history.join(", ")
 br
-
-= link_to 'New Ticket', new_ticket_path

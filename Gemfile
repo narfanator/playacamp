@@ -17,6 +17,7 @@ gem 'fog-aws'
 gem 'bcrypt'
 
 gem 'cancancan'
+gem 'paper_trail', '>= 4.0.0'
 
 group :development, :test do
   gem 'byebug'

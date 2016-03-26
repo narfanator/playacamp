@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   # GET /tickets
@@ -15,6 +16,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @users = User.all
   end
 
   # GET /tickets/1/edit
