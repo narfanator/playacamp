@@ -6,7 +6,7 @@ class Ticket < ActiveRecord::Base
     # First "version" is nil, as the record didn't exist, so we want to skip it.
     h = (versions[1..-1] || []).collect{|v| v.reify.user.name if v.reify}
     if h == []
-      [user.name]
+      [(user && user.name)]
     else
       h + [user.name]
     end
@@ -18,5 +18,13 @@ class Ticket < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def purchaser
+    history.first
+  end
+
+  def holder
+    history.last
   end
 end
