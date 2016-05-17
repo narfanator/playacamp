@@ -1,0 +1,8 @@
+table
+  thead
+  tbody
+    - @tickets.each do |ticket|
+      tr
+        td = ticket.user.name
+        td = ticket.held
+        td = ticket.history.join(", ")

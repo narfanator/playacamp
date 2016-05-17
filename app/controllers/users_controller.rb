@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :send_tickets, :give_tickets]
 
   # GET /users
   # GET /users.json
@@ -9,6 +9,18 @@ class UsersController < ApplicationController
     holding = User.all.select{|u| u.tickets.count > 0}.sort{|a,b| b.score <=> a.score} - in_need
     other = User.all - in_need - holding
     @users = in_need + holding + other
+    @tickets = Ticket.all
+  end
+
+  def send_tickets
+    @tickets = @user.tickets
+    @users = User.all.select{|u| u.needed_tickets > u.tickets.count}.sort{|a,b| b.score <=> a.score}
+  end
+
+  def give_tickets
+    in_need = User.all.select{|u| u.needed_tickets > u.tickets.count}.sort{|a,b| b.score <=> a.score}
+    holding = User.all.select{|u| u.tickets.count > 0}.sort{|a,b| b.score <=> a.score} - in_need
+    @held_tickets = holding.collect{|u| u.tickets}.flatten
   end
 
   # GET /users/1

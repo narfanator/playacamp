@@ -1,9 +1,16 @@
 h1 Listing users
 
+| Held Tickets: #{@tickets.select{|t| t.held}.count}
+br
+| Used Tickets: #{@tickets.select{|t| !t.held}.count}
+br
+| Total Tickets: #{@tickets.count}
+
 table.table.table-striped
   thead
     tr
       -if can? :create, User
+        th
         th Score
         th Tickets Needed
         th Tickets Owned
@@ -21,6 +28,13 @@ table.table.table-striped
       - if !mobile_request?
         tr
           - if can? :create, User
+            th
+              - if user.needed_tickets > user.tickets.count
+                = link_to give_user_path(user)
+                 button.btn.btn-primary.btn-sm Give
+              - if user.tickets.count > user.needed_tickets
+                = link_to send_user_path(user)
+                  button.btn.btn-secondary.btn-sm Send
             td = user.score
             td = user.needed_tickets
             td = user.tickets.count

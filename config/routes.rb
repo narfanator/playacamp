@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   resources :sessions
   resources :users
+  get 'send/:id', to: 'users#send_tickets', as: 'send_user'
+  get 'give/:id', to: 'users#give_tickets', as: 'give_user'
+
+  post 'tickets/bulk_update', to: 'tickets#bulk_update', as: 'bulk_update_tickets'
+
   resources :password_resets
 
   root to: 'visitors#index'

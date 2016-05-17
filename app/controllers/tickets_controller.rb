@@ -53,6 +53,13 @@ class TicketsController < ApplicationController
     end
   end
 
+  def bulk_update
+    params[:tickets].each do |t_id, t_params|
+      Ticket.find(t_id).update_attribute(:user_id, t_params[:user_id])
+    end
+    render :index
+  end
+
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
