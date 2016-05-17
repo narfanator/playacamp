@@ -1,8 +1,21 @@
-table
-  thead
-  tbody
-    - @tickets.each do |ticket|
+h1 Send #{@user.name}'s tickets to other people
+
+= form_tag "/tickets/bulk_update", method: :post
+  
+  table.table.table-striped
+    thead
       tr
-        td = ticket.user.name
-        td = ticket.held
-        td = ticket.history.join(", ")
+        th Send To
+        th Held By
+        th History
+        th Original Purchaser
+    tbody
+      - @tickets.each do |ticket|
+        = fields_for "tickets[]", ticket do |tf|
+          tr
+            td= tf.select :user_id, (@users.collect{|u|[u.name, u.id]}+[["(keep)",@user.id]])
+            td= ticket.holder
+            td= ticket.history.join(", ")
+            td= ticket.purchaser
+            
+  = submit_tag "Update These Tickets"
