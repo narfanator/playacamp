@@ -4,7 +4,7 @@ namespace :importers do
     entries = File.readlines(args[:filename])[1..-1] # Skip title line, we know the field layout
     entries.each do |entry|
       score = entry.split(",")[0]
-      email = (entry.split(",")[3]||"").strip
+      email = (entry.split(",")[3]||"").strip.downcase
       if(email && user = User.find_by_email(email))
         user.update_attribute :legacy_camp_score, score.to_i
         puts "Found #{user.email} set to #{score}"
