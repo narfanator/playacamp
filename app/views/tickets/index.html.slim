@@ -1,38 +1,38 @@
 
-= link_to 'New Ticket', new_ticket_path
+br 
+
+= link_to new_ticket_path
+  button.btn.btn-success New Ticket
 
 h1 Listing held tickets
 
-table
+table.table.table-striped
   thead
     tr
+      th
       th Holder
-      th Held
       th History
 
   tbody
     - @tickets.select{|t| t.held}.each do |ticket|
       tr
-        td = ticket.user.name
-        td = ticket.held
-        td = ticket.history.join(", ")
-br
+        td= link_to send_user_path(ticket.user)
+          button.btn.btn-secondary.btn-sm Send
+        td= ticket.user.name
+        td= ticket.history.join(", ")
+
 
 h1 Listing allocated tickets
 
-table
+table.table.table-striped
   thead
     tr
       th Holder
-      th Held
-      th
       th History
 
   tbody
     - @tickets.select{|t| !t.held}.each do |ticket|
       tr
         td = ticket.user.name
-        td = ticket.held
-        td = link_to 'Edit', edit_ticket_path(ticket)
         td = ticket.history.join(", ")
 br
