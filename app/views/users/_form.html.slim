@@ -21,10 +21,10 @@
   .fields
     = f.label :tickets_needed
     = f.number_field :needed_tickets 
-  .fieldv
-    = f.label :userpic
-    = image_tag @user.userpic
-    = f.file_field :userpic
+  /.fieldv
+    /= f.label :userpic
+    /= image_tag @user.userpic
+    /= f.file_field :userpic
   .actions = f.submit
   
   

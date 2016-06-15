@@ -1,10 +1,11 @@
 h1 Listing users
 
-| Held Tickets: #{@tickets.select{|t| t.held}.count}
-br
-| Used Tickets: #{@tickets.select{|t| !t.held}.count}
-br
-| Total Tickets: #{@tickets.count}
+-if can? :create, User
+  | Held Tickets: #{@tickets.select{|t| t.held}.count}
+  br
+  | Used Tickets: #{@tickets.select{|t| !t.held}.count}
+  br
+  | Total Tickets: #{@tickets.count}
 
 table.table.table-striped
   thead

@@ -3,7 +3,7 @@
     .user
       h1.text-center= user.name
       /img data-lazy=user.userpic
-      =image_tag user.userpic
+      /=image_tag user.userpic
       h1.text-center= user.phone
       td.text-center = link_to 'Edit', edit_user_path(user)
 
