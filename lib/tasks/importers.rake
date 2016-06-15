@@ -1,29 +1,50 @@
+require 'csv'
+
 namespace :importers do
-  desc "Imports a list of users with a camp score.\nExpecting first line to be colume names.\nExpecting: score,name,name,email"
-  task :camp_score_csv, [:filename] => :environment do |t, args|
-    entries = File.readlines(args[:filename])[1..-1] # Skip title line, we know the field layout
-    entries.each do |entry|
-      score = entry.split(",")[0].to_i
-      email = (entry.split(",")[3]||"").strip.downcase
-      if(email && user = User.find_by_email(email))
-        user.update_attribute :legacy_camp_score, score
-        puts "Found #{user.email} set to #{score}"
+  desc "Imports the camp spreadsheet"
+  task :import, [:filename] => :environment do |t, args|
+    data = {}
+    CSV.foreach(args[:filename], :headers => true, :header_converters => :symbol, :converters => :all) do |row|
+      data[row.fields[0]] = Hash[row.headers[1..-1].zip(row.fields[1..-1])]
+    end
+
+    data.each do |name, entry|
+      if(entry[:email] && user = User.find_by_email(entry[:email].downcase))
+        user.update_attributes(
+          legacy_camp_score: entry[:score] || 0,
+          needed_tickets: entry[:unticketed] + entry[:ticketed],
+        )
       else
-        if(score > 0)
-          puts "Entry not found: #{entry}. Create?"
-          if(STDIN.gets.strip == 'y')
-            pw = SecureRandom.urlsafe_base64
-            User.create(
-              name: (entry.split(',')[1] + " " + entry.split(',')[2]),
-              email: email,
-              legacy_camp_score: score,
-              password: pw,
-              password_confirmation: pw
-            )
-            puts "User created"
-          else
-            puts "User not created"
+        pw = SecureRandom.urlsafe_base64
+        user = User.create(
+          name: name + " " + entry[:surname],
+          email: entry[:email],
+          legacy_camp_score: entry[:score] || 0,
+          needed_tickets: entry[:unticketed] + entry[:ticketed],
+          password: pw,
+          password_confirmation: pw
+        )
+      end
+
+      if(entry[:ticketed] && entry[:ticketed] > user.tickets.count)
+        (1..(entry[:ticketed] - user.tickets.count)).each do
+          type =
+            (entry[:direct] and :direct) ||
+            (entry[:conclave] and :conclave) ||
+            (entry[:low_income] and :low_income) ||
+            (entry[:external] and :external) ||
+            (entry[:general] and :general)
+
+          @user = user
+          @entry = entry
+          if user.id == nil
+            pry
+            return
           end
+          Ticket.create(
+            user: user,
+            category: type
+          )
         end
       end
     end
