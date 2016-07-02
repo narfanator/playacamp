@@ -43,7 +43,7 @@ table.table.table-striped
           td = user.name
           td = user.email
           td = user.phone
-          //td = image_tag user.userpic.thumb
+          td = image_tag user.userpic.thumb
           - if can? :manage, user
             td = link_to 'Edit', edit_user_path(user)
           - else
