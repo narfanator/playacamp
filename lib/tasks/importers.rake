@@ -38,13 +38,13 @@ namespace :importers do
           @user = user
           @entry = entry
           if user.id == nil
-            pry
-            return
+            puts "Issue with #{name} user #{@user} and #{@entry}"
+          else
+            Ticket.create(
+              user: user,
+              category: type
+            )
           end
-          Ticket.create(
-            user: user,
-            category: type
-          )
         end
       end
     end
