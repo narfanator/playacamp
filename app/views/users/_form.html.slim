@@ -1,4 +1,4 @@
-= form_for @user do |f|
+= bootstrap_form_for @user do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
@@ -7,22 +7,16 @@
           li = message
 
   .field
-    = f.label :name
     = f.text_field :name
   .field
-    = f.label :email
     = f.text_field :email
   .field
-    = f.label :phone
     = f.text_field :phone
   .field
-    = f.label :facebook
     = f.text_field :facebook
   .fields
-    = f.label :tickets_needed
     = f.number_field :needed_tickets 
   .fieldv
-    = f.label :userpic
     = image_tag @user.userpic
     = f.file_field :userpic
   .actions = f.submit
@@ -32,7 +26,8 @@ p Camp Score Info
 = "Total: #{@user.score}"
 br
 = "Legacy: #{@user.legacy_camp_score}"
-table.table.table-striped
+br
+table.table.table-striped.hidden
   thead
     tr
       th Year

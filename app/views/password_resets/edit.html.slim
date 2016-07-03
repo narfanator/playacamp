@@ -1,4 +1,4 @@
-= form_for @user, url: password_reset_path(params[:id]) do |f|
+= bootstrap_form_for @user, url: password_reset_path(params[:id]) do |f|
   - if @user.errors.any?
     .error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this password from being updated:"
@@ -7,4 +7,4 @@
           li = message
   = f.password_field :password, placeholder: "Password"
   = f.password_field :password_confirmation, placeholder: "Password Confirmation"
-  = submit_tag "Update Password"
+  = f.submit "Update Password"

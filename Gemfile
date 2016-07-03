@@ -19,6 +19,8 @@ gem 'bcrypt'
 gem 'cancancan'
 gem 'paper_trail', '>= 4.0.0'
 
+gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
