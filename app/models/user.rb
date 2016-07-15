@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     else
       pw = SecureRandom.urlsafe_base64
       user = User.create(
-        name: entry[:name] + " " + entry[:surname],
+        name: "#{entry[:name]} #{entry[:surname]}",
         email: entry[:email].downcase,
         status: entry[:status].downcase,
         legacy_camp_score: entry[:score] || 0,
