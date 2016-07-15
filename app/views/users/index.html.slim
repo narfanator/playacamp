@@ -16,6 +16,7 @@ table.table.table-striped
         th Tickets Needed
         th Tickets Owned
         th Tickets Held
+      th Status
       th Name
       -if !mobile_request?
         th Email
@@ -40,6 +41,7 @@ table.table.table-striped
             td = user.needed_tickets
             td = user.tickets.count
             td = [(user.tickets.count - user.needed_tickets),0].max
+          td = user.status
           td = user.name
           td = user.email
           td = user.phone

@@ -13,12 +13,14 @@ namespace :importers do
         user.update_attributes(
           legacy_camp_score: entry[:score] || 0,
           needed_tickets: entry[:unticketed] + entry[:ticketed],
+          status: entry[:status],
         )
       else
         pw = SecureRandom.urlsafe_base64
         user = User.create(
           name: name + " " + entry[:surname],
           email: entry[:email],
+          status: entry[:status],
           legacy_camp_score: entry[:score] || 0,
           needed_tickets: entry[:unticketed] + entry[:ticketed],
           password: pw,
