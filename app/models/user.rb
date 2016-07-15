@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   #validates :name, :userpic, presence: true
   validates :name, uniqueness: true
   before_save { |user| user.email = user.email.downcase }
+  after_create :send_password_reset
 
   has_many :tickets
 
