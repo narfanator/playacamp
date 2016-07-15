@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def import_csv
     flash[:errors] ||= []
     CSV.parse(params['csv'].read, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
-      errors = User.upsert_from_csv_entry Hash[row.headers[1..-1].zip(row.fields[1..-1])]
+      errors = User.upsert_from_csv_entry Hash[row.headers.zip(row.fields)]
       flash[:errors] << errors if errors.any?
     end
 
