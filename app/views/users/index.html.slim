@@ -10,7 +10,7 @@ h1 Listing users
   	=form_tag({action: :import_csv}, multipart: true) do
       =file_field_tag 'csv'
       =submit_tag "Import"
-  - if flash[:errors].any?
+  - if flash[:errors] && flash[:errors].any?
     = flash[:errors]
 
 table.table.table-striped
