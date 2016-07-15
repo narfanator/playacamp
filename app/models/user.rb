@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   #validates :name, :userpic, presence: true
   validates :name, uniqueness: true
   before_save { |user| user.email = user.email.downcase }
-  after_create :send_password_reset
+  #after_create :send_password_reset
 
   has_many :tickets
 
@@ -31,6 +31,14 @@ class User < ActiveRecord::Base
     errors = []
     if(entry[:email] && user = User.find_by_email(entry[:email].downcase))
       user.update_attributes(
+        name: "#{entry[:name]} #{entry[:surname]}",
+        legacy_camp_score: entry[:score] || 0,
+        needed_tickets: entry[:unticketed] + entry[:ticketed],
+        status: entry[:status].downcase,
+      )
+    elsif entry[:name] && entry[:surname] && user = User.find_by_name("#{entry[:name]} #{entry[:surname]}")
+      user.update_attributes(
+        name: "#{entry[:name]} #{entry[:surname]}",
         legacy_camp_score: entry[:score] || 0,
         needed_tickets: entry[:unticketed] + entry[:ticketed],
         status: entry[:status].downcase,
