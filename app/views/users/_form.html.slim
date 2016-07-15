@@ -16,6 +16,9 @@
     = f.text_field :facebook
   .fields
     = f.number_field :needed_tickets 
+  - if can? :create, User
+    .fields
+      = f.text_field :status
   .fieldv
     = image_tag @user.userpic
     = f.file_field :userpic
