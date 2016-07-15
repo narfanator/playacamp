@@ -9,46 +9,7 @@ namespace :importers do
     end
 
     data.each do |name, entry|
-      if(entry[:email] && user = User.find_by_email(entry[:email].downcase))
-        user.update_attributes(
-          legacy_camp_score: entry[:score] || 0,
-          needed_tickets: entry[:unticketed] + entry[:ticketed],
-          status: entry[:status].downcase,
-        )
-      else
-        pw = SecureRandom.urlsafe_base64
-        user = User.create(
-          name: name + " " + entry[:surname],
-          email: entry[:email].downcase,
-          status: entry[:status].downcase,
-          legacy_camp_score: entry[:score] || 0,
-          needed_tickets: entry[:unticketed] + entry[:ticketed],
-          password: pw,
-          password_confirmation: pw
-        )
-      end
-
-      if(entry[:ticketed] && entry[:ticketed] > user.tickets.count)
-        (1..(entry[:ticketed] - user.tickets.count)).each do
-          type =
-            (entry[:direct] and :direct) ||
-            (entry[:conclave] and :conclave) ||
-            (entry[:low_income] and :low_income) ||
-            (entry[:external] and :external) ||
-            (entry[:general] and :general)
-
-          @user = user
-          @entry = entry
-          if user.id == nil
-            puts "Issue with #{name} user #{@user} and #{@entry}"
-          else
-            Ticket.create(
-              user: user,
-              category: type
-            )
-          end
-        end
-      end
+      puts User.upsert_from_csv_entry entry
     end
   end
 

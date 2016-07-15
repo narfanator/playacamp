@@ -6,6 +6,12 @@ h1 Listing users
   | Used Tickets: #{@tickets.select{|t| !t.held}.count}
   br
   | Total Tickets: #{@tickets.count}
+  br
+  	=form_tag({action: :import_csv}, multipart: true) do
+      =file_field_tag 'csv'
+      =submit_tag "Import"
+  - if flash[:errors].any?
+    = flash[:errors]
 
 table.table.table-striped
   thead

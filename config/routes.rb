@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'send/:id', to: 'users#send_tickets', as: 'send_user'
   get 'give/:id', to: 'users#give_tickets', as: 'give_user'
 
+  post 'users/csv', to: 'users#import_csv', as: 'import_csv'
+
   post 'tickets/bulk_update', to: 'tickets#bulk_update', as: 'bulk_update_tickets'
 
   resources :password_resets

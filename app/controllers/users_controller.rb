@@ -1,3 +1,5 @@
+require 'csv'
+
 class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :set_user, only: [:show, :edit, :update, :destroy, :send_tickets, :give_tickets]
@@ -70,6 +72,16 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def import_csv
+    flash[:errors] ||= []
+    CSV.parse(params['csv'].read, :headers => true, :header_converters => :symbol, :converters => :all) do |row|
+      errors = User.upsert_from_csv_entry Hash[row.headers[1..-1].zip(row.fields[1..-1])]
+      flash[:errors] << errors if errors.any?
+    end
+
+    redirect_to action: :index
   end
 
   # DELETE /users/1
