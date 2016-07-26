@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     if can? :create, User
-      in_need = User.all.select{|u| (u.needed_tickets || 0) > (u.tickets.count || 0)}.sort{|a,b| b.score <=> a.score}
+      in_need = User.all.select{|u| u.needed_tickets > u.tickets.count}.sort{|a,b| b.score <=> a.score}
       holding = User.all.select{|u| u.tickets.count > 0}.sort{|a,b| b.score <=> a.score} - in_need
       other = User.all - in_need - holding
       @users = in_need + holding + other

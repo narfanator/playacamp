@@ -29,18 +29,19 @@ class User < ActiveRecord::Base
 
   def self.upsert_from_csv_entry entry
     errors = []
+    needed_tickets = ((entry[:unticketed] || 0) + (entry[:ticketed] || 0)) || 0
     if(entry[:email] && user = User.find_by_email(entry[:email].downcase))
       user.update_attributes(
         name: "#{entry[:name]} #{entry[:surname]}",
         legacy_camp_score: entry[:score] || 0,
-        needed_tickets: entry[:unticketed] + entry[:ticketed],
+        needed_tickets: needed_tickets,
         status: entry[:status].downcase,
       )
     elsif entry[:name] && entry[:surname] && user = User.find_by_name("#{entry[:name]} #{entry[:surname]}")
       user.update_attributes(
         name: "#{entry[:name]} #{entry[:surname]}",
         legacy_camp_score: entry[:score] || 0,
-        needed_tickets: entry[:unticketed] + entry[:ticketed],
+        needed_tickets: needed_tickets,
         status: entry[:status].downcase,
       )
     else
@@ -50,7 +51,7 @@ class User < ActiveRecord::Base
         email: entry[:email].downcase,
         status: entry[:status].downcase,
         legacy_camp_score: entry[:score] || 0,
-        needed_tickets: entry[:unticketed] + entry[:ticketed],
+        needed_tickets: needed_tickets,
         password: pw,
         password_confirmation: pw
       )
