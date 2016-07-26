@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path unless current_user
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    logger.error "Error: #{exception} / user (#{current_user.id}) / #{request.original_url}"
+    redirect_to main_app.root_url, :alert => "Sorry, you're not authorized to do that!"
+  end
+
   before_filter :authorize
   check_authorization
 end
