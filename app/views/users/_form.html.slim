@@ -14,9 +14,9 @@
     = f.text_field :phone
   .field
     = f.text_field :facebook
-  .fields
-    = f.number_field :needed_tickets 
   - if can? :create, User
+    .fields
+      = f.number_field :needed_tickets 
     .fields
       = f.text_field :status
   .fieldv

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   mount_uploader :userpic, UserPicUploader
   #validates :name, :userpic, presence: true
   validates :name, uniqueness: true
+  validates_numericality_of :needed_tickets, only_integer: true, greater_than_or_equal_to: 0
   before_save { |user| user.email = user.email.downcase }
   #after_create :send_password_reset
 
