@@ -16,15 +16,18 @@
     = f.text_field :facebook
   - if can? :create, User
     .fields
-      = f.number_field :needed_tickets 
+      = f.number_field :needed_tickets
     .fields
       = f.text_field :status
-  .fieldv
+  .field
     = image_tag @user.userpic
     = f.file_field :userpic
+  .field
+    = image_tag @user.bikepic
+    = f.file_field :bikepic
   .actions = f.submit
-  
-  
+
+
 p Camp Score Info
 = "Total: #{@user.score}"
 br
@@ -36,5 +39,5 @@ table.table.table-striped.hidden
       th Year
       th Year Total
       th Preperation
-      th 
-      th  
+      th
+      th

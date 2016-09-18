@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715185812) do
+ActiveRecord::Schema.define(version: 20160918204321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160715185812) do
     t.integer  "legacy_camp_score",      default: 0
     t.integer  "needed_tickets",         default: 0
     t.string   "status"
+    t.string   "bikepic"
   end
 
   create_table "versions", force: :cascade do |t|

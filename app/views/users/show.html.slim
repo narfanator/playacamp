@@ -11,7 +11,12 @@ p
   = @user.phone
 p
   strong Userpic:
-  =image_tag @user.userpic.show
+  - if @user.userpic
+    =image_tag @user.userpic.show
+p
+  strong Bikepic:
+  - if @user.bikepic
+    =image_tag @user.bikepic.show
 
 = link_to 'Edit', edit_user_path(@user)
 '|

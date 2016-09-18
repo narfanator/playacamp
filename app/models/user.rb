@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :camp_scores
   has_secure_password
   mount_uploader :userpic, UserPicUploader
+  mount_uploader :bikepic, UserPicUploader
   #validates :name, :userpic, presence: true
   validates :name, uniqueness: true
   validates_numericality_of :needed_tickets, only_integer: true, greater_than_or_equal_to: 0
