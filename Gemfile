@@ -8,7 +8,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave' #For using "mount_uploaders"
 gem "mini_magick"
 gem 'mobu'
 gem "jquery-slick-rails"

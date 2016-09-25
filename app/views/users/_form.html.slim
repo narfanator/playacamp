@@ -20,11 +20,15 @@
     .fields
       = f.text_field :status
   .field
-    = image_tag @user.userpic
+    = image_tag @user.userpic.show
     = f.file_field :userpic
   .field
-    = image_tag @user.bikepic
+    = image_tag @user.bikepic.show
     = f.file_field :bikepic
+  .field
+    - @user.stuffpics.each do |stuffpic|
+      = image_tag stuffpic.show
+    = f.file_field :stuffpics, multiple: true
   .actions = f.submit
 
 

@@ -40,6 +40,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.stuffpics = params[:user][:stuffpics]
     @user.password = @user.password_confirmation = SecureRandom.urlsafe_base64 #TODO: Move to model
 
     respond_to do |format|
@@ -56,6 +57,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    images = @user.stuffpics
+    images += params[:user][:stuffpics]
+    @user.stuffpics = images
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -95,6 +99,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
+      #Handle stuffpics seperately
       params.require(:user).permit(:name, :email, :phone, :userpic, :bikepic, :password, :password_confirmation, :needed_tickets, :facebook, :status)
     end
 end

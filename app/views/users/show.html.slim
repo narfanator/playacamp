@@ -18,6 +18,11 @@ p
   - if @user.bikepic
     =image_tag @user.bikepic.show
 
+p
+  strong Stuff:
+  - @user.stuffpics.each do |stuffpic|
+    = image_tag stuffpic
+
 = link_to 'Edit', edit_user_path(@user)
 '|
 = link_to 'Back', users_path
