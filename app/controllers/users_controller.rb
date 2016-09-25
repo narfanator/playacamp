@@ -58,7 +58,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     images = @user.stuffpics
-    images += params[:user][:stuffpics]
+    params[:stuffpic_deletions].select{|i,d| d == "1"}.keys.each do |i|
+      images.delete_at(i.to_i);
+    end
+    images += (params[:user][:stuffpics] || [])
     @user.stuffpics = images
     respond_to do |format|
       if @user.update(user_params)

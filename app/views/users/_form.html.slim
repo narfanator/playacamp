@@ -26,8 +26,10 @@
     = image_tag @user.bikepic.show
     = f.file_field :bikepic
   .field
-    - @user.stuffpics.each do |stuffpic|
+    - @user.stuffpics.each_with_index do |stuffpic, i|
       = image_tag stuffpic.show
+      | Delete image?
+      = check_box "stuffpic_deletions", i
     = f.file_field :stuffpics, multiple: true
   .actions = f.submit
 
