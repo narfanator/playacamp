@@ -1,0 +1,10 @@
+.container
+  == render file: 'public/_info.html'
+
+.container
+  - if can? :create, User
+    | Edit the above!
+    = form_tag '/info'
+      = text_area_tag :info, @info_string, rows: 15, cols: 100, escape: false
+      br
+      = submit_tag "Update"

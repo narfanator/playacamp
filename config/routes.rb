@@ -20,5 +20,7 @@ Rails.application.routes.draw do
 
   resources :password_resets
 
+  get 'info', to: 'visitors#info', as: 'info'
+  post 'info', to: 'visitors#update_info'
   root to: 'visitors#index'
 end
