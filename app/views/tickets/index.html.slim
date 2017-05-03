@@ -1,5 +1,5 @@
 
-br 
+br
 
 = link_to new_ticket_path
   button.btn.btn-success New Ticket
@@ -34,5 +34,5 @@ table.table.table-striped
     - @tickets.select{|t| !t.held}.each do |ticket|
       tr
         td = ticket.user.name
-        td = ticket.history.join(", ")
+        td = ticket.history.join(" > ")
 br
