@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.order(:name).all
-    @tickets = Ticket.all
+    @tickets = Ticket.where("created_at > '2017-01-01'")
   end
 
   def send_tickets
