@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925211557) do
+ActiveRecord::Schema.define(version: 20170503041730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20160925211557) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.integer  "legacy_camp_score",      default: 0
-    t.integer  "needed_tickets",         default: 0
     t.string   "status"
     t.string   "bikepic"
     t.json     "stuffpics"
