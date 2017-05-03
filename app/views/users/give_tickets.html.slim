@@ -1,7 +1,7 @@
 h1 Giving tickets to #{@user.name}
 
 = form_tag "/tickets/bulk_update", method: :post
-  
+
   table.table.table-striped
     thead
       tr
@@ -15,6 +15,6 @@ h1 Giving tickets to #{@user.name}
           tr
             td= tf.check_box :user_id, {}, @user.id, ticket.user_id
             td= ticket.holder
-            td= ticket.history.join(", ")
+            td= ticket.history.join(" > ")
             td= ticket.purchaser
   = submit_tag "Send These Tickets to #{@user.name}"
