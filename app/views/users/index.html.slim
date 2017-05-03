@@ -43,7 +43,7 @@ table.table.table-striped
                 = link_to send_user_path(user)
                   button.btn.btn-secondary.btn-sm Send
             td = user.score
-            td = user.tickets.count >= 1
+            td = user.tickets.count >= user.needed_tickets && user.status == "camper"
             td = [(user.tickets.count - user.needed_tickets),0].max
           td = user.status
           td = user.name
