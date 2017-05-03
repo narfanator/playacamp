@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def give_tickets
     in_need = User.all.select{|u| u.needed_tickets > u.tickets.count}.sort{|a,b| b.score <=> a.score}
     holding = User.all.select{|u| u.tickets.count > 0}.sort{|a,b| b.score <=> a.score} - in_need
-    @held_tickets = holding.collect{|u| u.tickets}.flatten
+    @held_tickets = holding.collect{|u| u.tickets[1..-1]}.flatten
   end
 
   # GET /users/1
