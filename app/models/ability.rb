@@ -6,6 +6,6 @@ class Ability
     can :show, :all
     can :manage, User, id: user.id
     cannot :create, User
-    can :manage, :all if user.email == ENV['admin']
+    can :manage, :all if ENV['admin'].split(' ').include? user.email
   end
 end
