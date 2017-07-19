@@ -17,14 +17,26 @@ table.table.table-striped
   thead
     tr
       -if can? :create, User
+        th= select_tag 'select[ticket_motion]', options_for_select(["", "Give", "Send"], params.dig(:select,:ticket_motion))
         th
-        th Score
-        th Ticketed
-        th Tickets Held
-      th Status
-      th Name
+          | Score
+          = select_tag 'sort[score]', options_for_select(["", "desc", "asc"], params.dig(:sort,:score))
+        th
+          | Ticketing
+          = select_tag 'select[ticketed]', options_for_select({"All" => nil, "Has tickets" => true, "Needs tickets" => false}, params.dig(:select,:ticketed))
+        th
+          | Tickets Held
+          = select_tag 'sort[tickets_held]', options_for_select(["", "desc", "asc"], params.dig(:sort,:tickets_held))
+      th
+       | Status
+       = select_tag 'filter[status]', options_for_select(["", "camper", "fellow"], params.dig('filter','status'))
+      th
+        | Name
+        = select_tag 'search[name]', options_for_select(["", "desc", "asc"], params.dig(:search,:name))
       -if !mobile_request?
-        th Email
+        th
+          | Email
+          = select_tag 'search[email]', options_for_select(["", "desc", "asc"], params.dig(:search,:email))
       th Phone
       th Userpic
       -if !mobile_request?
@@ -42,8 +54,13 @@ table.table.table-striped
               - if user.tickets.count > user.needed_tickets
                 = link_to send_user_path(user)
                   button.btn.btn-secondary.btn-sm Send
+            //Score
             td = user.score
+
+            //Ticketing
             td = user.tickets.count >= user.needed_tickets && user.status == "camper"
+
+            //Tickets held
             td = [(user.tickets.count - user.needed_tickets),0].max
           td = user.status
           td = user.name
@@ -64,3 +81,9 @@ br
 
 - if can? :create, User
   = link_to 'New User', new_user_path
+
+coffee:
+  # TODO: Not inline Coffeescript. But, for this tiny snippet... this is fine for now
+  $('select').on 'change', (event) ->
+    window.location.search= "?#{this.name}=#{this.value}"
+  

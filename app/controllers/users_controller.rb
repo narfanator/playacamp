@@ -7,7 +7,43 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.order(:name).all
+    @users = User.where(search_params[:filter]).order(search_params[:search] || :name).all
+
+    #TODO: This sucks VVV Find a better way
+    if params[:sort]
+
+      if params[:sort][:score]
+        @users = @users.sort{ |a,b|
+          a.score <=> b.score
+        }
+
+        @users.reverse! if params[:sort][:score] == 'desc'
+      end
+
+      if params[:sort][:tickets_held]
+        @users = @users.sort{ |a,b|
+          [(a.tickets.count - a.needed_tickets),0].max <=> [(b.tickets.count - b.needed_tickets),0].max
+        }
+
+        @users.reverse! if params[:sort][:tickets_held] == 'desc'
+      end
+    end
+
+    if params[:select]
+      if params[:select][:ticket_motion] == 'Give'
+        @users = @users.select{|user| user.needed_tickets > user.tickets.count }
+      elsif params[:select][:ticket_motion] == 'Send'
+        @users = @users.select{|user| user.tickets.count > user.needed_tickets }
+      end
+
+      if params[:select][:ticketed] == 'true'
+        @users = @users.select{|user| user.tickets.count >= user.needed_tickets && user.status == "camper" }
+      elsif params[:select][:ticketed] == 'false'
+        @users = @users.select{|user| !(user.tickets.count >= user.needed_tickets) && user.status == "camper" }
+      end
+    end
+
+
     @tickets = Ticket.where("created_at > '2017-01-01'")
   end
 
@@ -104,5 +140,12 @@ class UsersController < ApplicationController
     def user_params
       #Handle stuffpics seperately
       params.require(:user).permit(:name, :email, :phone, :userpic, :bikepic, :password, :password_confirmation, :facebook, :status)
+    end
+
+    def search_params
+      params.permit(
+        search: %i(score tickets_held name email),
+        filter: %i(ticket_motion ticketed status)
+      )
     end
 end
