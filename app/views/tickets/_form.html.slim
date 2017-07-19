@@ -9,4 +9,6 @@
   .field
     = label_tag "Purchaser" 
     = f.select :user_id, options_for_select(@users.collect{|u| [u.name, u.id] })
+    = label_tag "Quantity"
+    = select_tag :quantity, options_for_select(1..4)
   .actions = f.submit
