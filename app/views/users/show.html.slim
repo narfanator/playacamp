@@ -10,6 +10,12 @@ p
   strong Phone:
   = @user.phone
 p
+  strong Location:
+  = @user.location
+p 
+  strong Birthday
+  = @user.birthday
+p
   strong Userpic:
   - if @user.userpic
     =image_tag @user.userpic.show

@@ -22,6 +22,9 @@ table.table.table-striped
           | Score
           = select_tag 'sort[score]', options_for_select(["", "desc", "asc"], params.dig(:sort,:score))
         th
+          | Work Units
+          = select_tag 'sort[work_units]', options_for_select(["", "desc", "asc"], params.dig(:sort,:work_units))
+        th
           | Ticketing
           = select_tag 'select[ticketed]', options_for_select({"All" => nil, "Has tickets" => true, "Needs tickets" => false}, params.dig(:select,:ticketed))
         th
@@ -33,6 +36,9 @@ table.table.table-striped
       th
         | Name
         = select_tag 'search[name]', options_for_select(["", "desc", "asc"], params.dig(:search,:name))
+      th
+        | Location
+        = select_tag 'filter[location]', options_for_select(User.pluck(:location).uniq, params.dig(:filter, :location))
       -if !mobile_request?
         th
           | Email
@@ -56,6 +62,7 @@ table.table.table-striped
                   button.btn.btn-secondary.btn-sm Send
             //Score
             td = user.score
+            td = "#{(user.work_unit||0)}%"
 
             //Ticketing
             td = user.tickets.count >= user.needed_tickets && user.status == "camper"
@@ -64,6 +71,7 @@ table.table.table-striped
             td = [(user.tickets.count - user.needed_tickets),0].max
           td = user.status
           td = user.name
+          td = user.location
           td = user.email
           td = user.phone
           td = image_tag user.userpic.thumb

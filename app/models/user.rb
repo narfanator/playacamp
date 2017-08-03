@@ -38,27 +38,30 @@ class User < ActiveRecord::Base
   def self.upsert_from_csv_entry entry
     errors = []
     entry["E-mail"] ||= ""
+
+    attributes = {
+      name: entry["Full name"],
+      location: entry["Location"],
+      legacy_camp_score: entry["Master Score"] || 0,
+      status: entry["Status"].downcase,
+      birthday: Date.strptime(entry["Birthday"], "%m/%d/%Y"),
+      gender: entry["Gender"],
+      years: (entry["Years"]||"").split(', '),
+      work_unit: entry["Work Unit"], #TODO: Work unit as part of yearly review
+    }
+
     if(entry["E-mail"] && user = User.find_by_email(entry["E-mail"].downcase))
-      user.update_attributes(
-        name: entry["Full name"],
-        legacy_camp_score: entry["Score"] || 0,
-        status: entry["Status"].downcase,
-      )
+      user.update_attributes( attributes )
     elsif entry["Full name"] && user = User.find_by_name(entry["Full name"])
-      user.update_attributes(
-        name: entry["Full name"],
-        legacy_camp_score: entry["Score"] || 0,
-        status: entry["Status"].downcase,
-      )
+      user.update_attributes( attributes )
     elsif entry["Full name"]
       pw = SecureRandom.urlsafe_base64
       user = User.create(
-        name: entry["Full name"],
-        email: entry["E-mail"].downcase,
-        status: entry["Status"].downcase,
-        legacy_camp_score: entry["Score"] || 0,
-        password: pw,
-        password_confirmation: pw
+        attributes.merge({
+          email: entry["E-mail"].downcase,
+          password: pw,
+          password_confirmation: pw
+        })
       )
     end
 

@@ -20,6 +20,12 @@ class UsersController < ApplicationController
         @users.reverse! if params[:sort][:score] == 'desc'
       end
 
+      if params[:sort][:work_unit]
+        @users = @users.sort{ |a,b|
+          a.work_unit <=> b.work_unit
+        }
+      end
+
       if params[:sort][:tickets_held]
         @users = @users.sort{ |a,b|
           [(a.tickets.count - a.needed_tickets),0].max <=> [(b.tickets.count - b.needed_tickets),0].max
@@ -145,7 +151,7 @@ class UsersController < ApplicationController
     def search_params
       params.permit(
         search: %i(score tickets_held name email),
-        filter: %i(ticket_motion ticketed status)
+        filter: %i(ticket_motion ticketed status location)
       )
     end
 end

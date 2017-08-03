@@ -13,6 +13,10 @@
   .field
     = f.text_field :phone
   .field
+    = f.date_field :birthday
+  .field
+    = f.text_field :location
+  .field
     = f.text_field :facebook
   - if can? :create, User
     .fields
