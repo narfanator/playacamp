@@ -35,6 +35,16 @@ class User < ActiveRecord::Base
     legacy_camp_score + camp_scores.collect{|c| c.score}.inject(0, :+)
   end
 
+  def surveys
+    Hash[Survey.all.collect do |survey|
+      url = survey.url_formula
+      attributes.each do |k,v|
+        url.gsub! "USER__#{k}__USER", v.to_s
+      end
+      [survey.name, url]
+    end]
+  end
+
   def self.upsert_from_csv_entry entry
     errors = []
     entry["E-mail"] ||= ""
