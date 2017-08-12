@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
       location: entry["Location"],
       legacy_camp_score: entry["Master Score"] || 0,
       status: entry["Status"].downcase,
-      birthday: Date.strptime(entry["Birthday"], "%m/%d/%Y"),
+      birthday: (Date.strptime(entry["Birthday"], "%m/%d/%Y") rescue nil),
       gender: entry["Gender"],
       years: (entry["Years"]||"").split(', '),
       work_unit: entry["Work Unit"], #TODO: Work unit as part of yearly review
