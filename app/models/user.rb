@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
       work_unit: entry["Work Unit"], #TODO: Work unit as part of yearly review
     }
 
+    puts attributes
+
     if(entry["E-mail"] && user = User.find_by_email(entry["E-mail"].downcase))
       user.update_attributes( attributes )
     elsif entry["Full name"] && user = User.find_by_name(entry["Full name"])
