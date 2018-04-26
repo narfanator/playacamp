@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# docker-compose run web ./bin/db_setup
+rake db:drop
+rake db:create

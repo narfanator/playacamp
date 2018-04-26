@@ -1,9 +1,5 @@
 version: '3'
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
@@ -13,3 +9,14 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  utils:
+    build:
+      context: .
+      dockerfile: utils.dockerfile
+    volumes:
+      - ./docker-bin:/opt/swing-city/utils/bin
+    command: echo OK
+  db:
+    image: postgres:10.3-alpine
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data

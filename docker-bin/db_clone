@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# docker-compose run web ./bin/db_setup
+heroku pg:backups:capture --app swing-city
+heroku pg:backups:download --app swing-city
+pg_restore --verbose --clean --no-acl --no-owner -h db -U postgres -d swingcity-dev latest.dump
