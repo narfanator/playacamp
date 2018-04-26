@@ -5,26 +5,36 @@ Swingcity
 
 Wanna help? Horray!
 
-Work on this project involves use of:
-- Git
+If you know any of these, you can help!
+
 - Docker
 - Ruby
 - Ruby on Rails
-- HTML (well, technically [[slim](http://slim-lang.com/)]
+- HTML (well, technically [[slim](http://slim-lang.com/)])
 - Javascript (well, sometimes coffeescript)
 - CSS (well, technically SCSS)
 - Postgres
 - Heroku
 
-...but all you need to get started is Git & Docker!
-
+If don't know any of these but want to help anyway, ask! (Seriously, ask - we can teach you, and you'll need more guidance than can happen here to get started)
 
 Getting Started
 ---------------
 
-You will need to be setup with Github, and have Docker installed.
+You will need to be setup with Git & Github, and have Docker installed.
 
-Run these commands:
+Mac:
+- Git: Already installed! You may want a GUI like https://www.sourcetreeapp.com/ but you'll need to use the command line ("terminal" application) anyway
+- Docker: https://docs.docker.com/docker-for-mac/install/#download-docker-for-mac
+
+Windows:
+- Git: You probably want https://git-scm.com/download/win but there's more than one way to skin this cat
+- Docker: https://docs.docker.com/docker-for-windows/install/#download-docker-for-windows
+
+Both:
+- Get a Github account: https://github.com/join
+
+Once that's all done, run these commands from terminal:
 - `git clone git@github.com:rangerscience/playacamp.git` or `git clone https://github.com/rangerscience/playacamp.git`
 - `docker-compose run utils ./bin/db_setup`
 - `docker-compose run web rake db:migrate`
